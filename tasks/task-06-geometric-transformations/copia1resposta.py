@@ -31,7 +31,7 @@ import numpy as np
 
 def apply_geometric_transformations(img: np.ndarray) -> dict:
     # Your implementation here
-    
+
     height, width = img.shape
 
     # 1. Translated Image (shift right and down)

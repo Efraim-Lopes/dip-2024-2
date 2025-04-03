@@ -1,37 +1,8 @@
-# image_geometry_exercise.py
-# STUDENT'S EXERCISE FILE
-
-"""
-Exercise:
-Implement a function `apply_geometric_transformations(img)` that receives a grayscale image
-represented as a NumPy array (2D array) and returns a dictionary with the following transformations:
-
-1. Translated image (shift right and down)
-2. Rotated image (90 degrees clockwise)
-3. Horizontally stretched image (scale width by 1.5)
-4. Horizontally mirrored image (flip along vertical axis)
-5. Barrel distorted image (simple distortion using a radial function)
-
-You must use only NumPy to implement these transformations. Do NOT use OpenCV, PIL, skimage or similar libraries.
-
-Function signature:
-    def apply_geometric_transformations(img: np.ndarray) -> dict:
-
-The return value should be like:
-{
-    "translated": np.ndarray,
-    "rotated": np.ndarray,
-    "stretched": np.ndarray,
-    "mirrored": np.ndarray,
-    "distorted": np.ndarray
-}
-"""
-
 import numpy as np
 
 def apply_geometric_transformations(img: np.ndarray) -> dict:
-    # Your implementation here
-    
+    # YOUR IMPLEMENTATION HERE
+
     height, width = img.shape
 
     # 1. Translated Image (shift right and down)
@@ -93,4 +64,54 @@ def apply_geometric_transformations(img: np.ndarray) -> dict:
         "mirrored": mirrored,
         "distorted": distorted
     }
-    pass
+
+import numpy as np
+from PIL import Image  # Biblioteca Pillow para carregar imagens
+import os
+
+# Exemplo de uso:
+if __name__ == "__main__":
+    # Construir caminho da imagem corretamente
+    img_path = "C:/Users/Efraim/Documents/EFRAIM/IC_-_UFAL/2024.2_PDI/dip-2024-2/img/baboon.png"
+
+    img = Image.open(img_path).convert("L")  # "L" converte para escala de cinza
+    img = np.array(img, dtype=np.uint8)  # Converte a imagem para um array NumPy
+
+    # Aplicar as transformações
+    result = apply_geometric_transformations(img)
+    
+    # Exibir as transformações com uma linha em branco entre elas
+    for key, value in result.items():
+        print(f"{key}:")
+        print(value)
+        print()  # Isso adiciona uma linha em branco entre as saídas
+
+    # Criar a pasta results se não existir
+    output_dir = os.path.join(os.path.dirname(__file__), "results")  # Cria dentro do diretório do script
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"Salvando imagens em: {output_dir}")  # Teste para ver onde está salvando
+    print(result.keys())  # Deve imprimir os nomes das transformações
+
+    # Salvar as imagens transformadas
+    for key, value in result.items():
+        img_result = Image.fromarray(value)  # Converter array para imagem
+        img_result.save(os.path.join(output_dir, f"result_{key}.png"))
+    
+
+""" 
+
+# Exemplo de uso:
+if __name__ == "__main__":
+    # Carregar uma imagem em escala de cinza (usando np.random apenas como exemplo)
+    img = np.random.randint(0, 255, (100, 100), dtype=np.uint8)
+
+    # Aplicar as transformações
+    result = apply_geometric_transformations(img)
+    
+    # Exibir as transformações com uma linha em branco entre elas
+    for key, value in result.items():
+        print(f"{key}:")
+        print(value)
+        print()  # Isso adiciona uma linha em branco entre as saídas"
+
+"""
