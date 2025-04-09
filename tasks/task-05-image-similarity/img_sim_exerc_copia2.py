@@ -32,8 +32,8 @@ Assume that i1 and i2 are normalized grayscale images (values between 0 and 1).
 import numpy as np
 
 def compare_images(i1: np.ndarray, i2: np.ndarray) -> dict:
-    # Your implementation here
-
+    # Your implementation 
+    
     # 1. Mean Squared Error
     mse = np.mean((i1 - i2) ** 2)
 
@@ -86,3 +86,20 @@ def compare_images(i1: np.ndarray, i2: np.ndarray) -> dict:
     }
 
     pass
+
+
+if __name__ == "__main__":
+    # Criar duas imagens de teste (5x5) com valores normalizados entre 0 e 1
+    img1 = np.ones((5, 5)) * 0.5  # imagem com todos os pixels = 0.5
+    img2 = np.ones((5, 5)) * 0.5  # igual à anterior → todas as métricas devem dar perfeito
+
+    # Modificar levemente img2 para testar diferenças
+    img2[0, 0] = 0.6
+    img2[4, 4] = 0.4
+
+    # Chamar a função
+    result = compare_images(img1, img2)
+
+    # Exibir os resultados
+    for key, value in result.items():
+        print(f"{key}: {value}")
